@@ -64,10 +64,11 @@ const Scene = () => {
           headBone = character.getObjectByName("spine006") || null;
           screenLight = character.getObjectByName("screenlight") || null;
           progress.loaded().then(() => {
-            setTimeout(() => {
+            const timeoutId = setTimeout(() => {
               light.turnOnLights();
               animations.startIntro();
             }, 2500);
+            return () => clearTimeout(timeoutId);
           });
           window.addEventListener("resize", () =>
             handleResize(renderer, camera, canvasDiv, character)
@@ -81,10 +82,11 @@ const Scene = () => {
       const onMouseMove = (event: MouseEvent) => {
         handleMouseMove(event, (x, y) => (mouse = { x, y }));
       };
-      let debounce: number | undefined;
+      
+      let debounceTimeout: NodeJS.Timeout | undefined;
       const onTouchStart = (event: TouchEvent) => {
         const element = event.target as HTMLElement;
-        debounce = setTimeout(() => {
+        debounceTimeout = setTimeout(() => {
           element?.addEventListener("touchmove", (e: TouchEvent) =>
             handleTouchMove(e, (x, y) => (mouse = { x, y }))
           );
@@ -127,7 +129,7 @@ const Scene = () => {
       };
       animate();
       return () => {
-        clearTimeout(debounce);
+        if (debounceTimeout) clearTimeout(debounceTimeout);
         scene.clear();
         renderer.dispose();
         window.removeEventListener("resize", () =>

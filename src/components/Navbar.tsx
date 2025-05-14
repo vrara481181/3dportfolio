@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HoverLinks from "./HoverLinks";
 import { gsap } from "gsap";
@@ -8,7 +8,46 @@ import "./styles/Navbar.css";
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
 export let smoother: ScrollSmoother;
 
+const AvatarModal = ({ onClose }: { onClose: () => void }) => {
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
+  return (
+    <aside className="modal-overlay" onClick={handleOverlayClick}>
+      <div className="modal-container">
+        <div className="modal-content">
+          <img
+            src="/assets/avatar.JPG"
+            alt="Vraj Patel"
+            className="modal-image"
+          />
+          <button
+            onClick={onClose}
+            className="modal-close"
+            aria-label="Close modal"
+          >
+            ×
+          </button>
+        </div>
+      </div>
+    </aside>
+  );
+};
+
 const Navbar = () => {
+  const [avatarToggle, setAvatarToggle] = useState(false);
+
+  useEffect(() => {
+    if (avatarToggle) {
+      document.body.style.overflowY = "hidden";
+    } else {
+      document.body.style.overflowY = "auto";
+    }
+  }, [avatarToggle]);
+
   useEffect(() => {
     smoother = ScrollSmoother.create({
       wrapper: "#smooth-wrapper",
@@ -39,19 +78,39 @@ const Navbar = () => {
       ScrollSmoother.refresh(true);
     });
   }, []);
+
   return (
     <>
       <div className="header">
-        <a href="/#" className="navbar-title" data-cursor="disable">
-          Logo
-        </a>
+        <div className="left-section">
+          <div className="flex items-center gap-6">
+            <div
+              className="avatar-container"
+              onClick={() => setAvatarToggle(true)}
+            >
+              <img
+                src="/assets/avatar.JPG"
+                alt="Vraj Patel"
+                className="avatar-image"
+              />
+            </div>
+            <div className="navbar-title">
+              Vraj Patel &nbsp;
+              <span className="hidden lg:inline">| Full Stack Developer</span>
+            </div>
+          </div>
+        </div>
+        
+        <div className="navbar-connect-wrapper">
         <a
-          href="mailto:example@mail.com"
+          href="mailto:vrajpatel342008@gmail.com"
           className="navbar-connect"
           data-cursor="disable"
         >
-          example@mail.com
+          vrajpatel342008@gmail.com
         </a>
+        </div>
+
         <ul>
           <li>
             <a data-href="#about" href="#about">
@@ -64,12 +123,24 @@ const Navbar = () => {
             </a>
           </li>
           <li>
+            <a data-href="#skills" href="#skills">
+              <HoverLinks text="SKILLS" />
+            </a>
+          </li>
+          <li>
+            <a data-href="#projects" href="#projects">
+              <HoverLinks text="PROJECTS" />
+            </a>
+          </li>
+          <li>
             <a data-href="#contact" href="#contact">
               <HoverLinks text="CONTACT" />
             </a>
           </li>
         </ul>
       </div>
+
+      {avatarToggle && <AvatarModal onClose={() => setAvatarToggle(false)} />}
 
       <div className="landing-circle1"></div>
       <div className="landing-circle2"></div>

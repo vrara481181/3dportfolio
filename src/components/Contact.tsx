@@ -10,7 +10,7 @@ const Contact = () => {
           <div className="contact-box">
             <h4>Email</h4>
             <p>
-              <a href="mailto:example@mail.com" data-cursor="disable">
+              <a href="mailto:vrajpatel342008@gmail.com" data-cursor="disable">
                 abc@gmail.com
               </a>
             </p>
@@ -58,7 +58,7 @@ const Contact = () => {
           </div>
           <div className="contact-box">
             <h2>
-              Designed and Developed <br /> by <span>Kabir Singh</span>
+              Designed and Developed <br /> by <span>VRAJ PATEL</span>
             </h2>
             <h5>
               <MdCopyright /> 2025

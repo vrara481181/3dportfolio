@@ -6,9 +6,7 @@ const About = () => {
       <div className="about-me">
         <h3 className="title">About Me</h3>
         <p className="para">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic quis
-          dolores numquam iusto Ratione earum ducimus autem id iure pariatur
-          dolorum quae maiores.
+        Hello! I'm Vraj Patel, a graduate student pursuing a Master's in Computer Science at Loyola Marymount University. I am passionate about building scalable software solutions, architecting robust databases, and leveraging data analytics to drive business value. My experience spans full-stack development, advanced database design, and data-driven decision-making. I thrive in collaborative environments and am committed to continuous learning and innovation in the ever-evolving tech landscape.
         </p>
       </div>
     </div>
